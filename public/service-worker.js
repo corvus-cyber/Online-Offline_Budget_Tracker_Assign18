@@ -34,3 +34,35 @@ self.addEventListener('activate', (event) =>{
     }));
 });
 
+//Fetch 
+self.addEventListener("fetch", function(event) {
+    // cache successful requests to the API
+    if (event.request.url.includes("/api/")) {
+      event.respondWith(
+        caches.open(DATA_CACHE_NAME).then(cache => {
+          return fetch(event.request)
+            .then(response => {
+              // If the response was good, clone it and store it in the cache.
+              if (response.status === 200) {
+                cache.put(event.request.url, response.clone());
+              }
+  
+              return response;
+            })
+            .catch(error => {
+              // Network request failed, try to get it from the cache.
+              return cache.match(event.request);
+            });
+        }).catch(error => console.log(error))
+      );
+  
+      return;
+    }
+  
+    // if the request is not for the API, serve static assets using "offline-first" approach.
+    event.respondWith(
+      caches.match(event.request).then(function(response) {
+        return response || fetch(event.request);
+      })
+    );
+  });
