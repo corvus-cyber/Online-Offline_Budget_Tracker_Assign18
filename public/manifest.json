@@ -10,5 +10,12 @@
             "sizes": "512x512",
             "type": "image/png"
         }
-    ]
+    ],
+    "name": "Budget Application",
+    "short_name": "Budget",
+    "description": "An application that allows you to update your budget online/offline",
+    "display": "standalone",
+    "start_url": "/",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff"
 }
