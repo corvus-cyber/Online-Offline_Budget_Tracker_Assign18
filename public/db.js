@@ -46,12 +46,6 @@ function checkDatabase() {
   const store = transaction.objectStore("pending");
   // get all records from store and set to a variable
   const getAll = store.getAll();
-  transactions = getAll;
-  console.log(getAll)
-    console.log(transactions)
-    populateTotal();
-    populateTable();
-    populateChart();
 
   getAll.onsuccess = function() {
     if (getAll.result.length > 0) {
