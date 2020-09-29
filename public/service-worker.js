@@ -12,7 +12,7 @@ const DATA_CACHE_NAME = "data-cache-v1";
 //Install the cache
 self.addEventListener('install', (event) => {
     event.waitUntil(
-      caches.open(PRECACHE).then(cache => {
+      caches.open(CACHE_NAME).then(cache => {
         console.log("installing cache")
         return cache.addAll(FILES_TO_CACHE)
     })
