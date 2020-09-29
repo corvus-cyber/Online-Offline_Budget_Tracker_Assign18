@@ -46,18 +46,23 @@ function checkDatabase() {
   const store = transaction.objectStore("pending");
   // get all records from store and set to a variable
   const getAll = store.getAll();
+  transactions = getAll;
+  console.log(getAll)
+    console.log(transactions)
+    populateTotal();
+    populateTable();
+    populateChart();
 
   getAll.onsuccess = function() {
     if (getAll.result.length > 0) {
-        fetch("/api/transaction")
-        fetch("/api/transaction/bulk", {
-            method: "POST",
-            body: JSON.stringify(getAll.result),
-            headers: {
-              Accept: "application/json, text/plain, */*",
-              "Content-Type": "application/json"
-            }
-        })
+      fetch("/api/transaction/bulk", {
+        method: "POST",
+        body: JSON.stringify(getAll.result),
+        headers: {
+          Accept: "application/json, text/plain, */*",
+          "Content-Type": "application/json"
+        }
+      })
       .then(response => response.json())
       .then(() => {
         // if successful, open a transaction on your pending db
