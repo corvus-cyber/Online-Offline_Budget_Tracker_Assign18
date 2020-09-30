@@ -67,6 +67,7 @@ function checkDatabase() {
 
         // clear all items in your store
         store.clear();
+        window.location.reload();
       });
     }
   };
